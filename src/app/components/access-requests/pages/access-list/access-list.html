@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Solicitudes de Acceso</h2>
+    <a class="btn btn-primary" [routerLink]="['/access/create']">
+      ➕ Nueva Solicitud
+    </a>
+  </div>
+
+  @if (!isLoading && accessRequests.length) {
+    <table class="table table-bordered mt-3">
+      <thead class="table-light">
+      <tr>
+        <th>Usuario</th>
+        <th>Tipo</th>
+        <th>Aplicaciones</th>
+        <th>Justificación</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (request of accessRequests; track request.id) {
+          <tr>
+            <td>{{ request.user_name }}</td>
+            <td>{{ request.request_type }}</td>
+            <td>{{ formatApps(request.applications) }}</td>
+            <td>{{ request.justification }}</td>
+            <td>
+      <span [ngClass]="{
+          'text-warning': request.status === 'pending',
+          'text-success': request.status === 'approved',
+          'text-danger': request.status === 'rejected'
+        }"
+      >
+        {{ translateStatus(request.status) }}
+      </span>
+            </td>
+            <td>{{ formatDate(request.created_at ?? '') }}</td>
+            @if (request.status === 'pending') {
+              <td>
+                <button class="btn btn-sm btn-success me-1" (click)="updateStatus(request.id, 'approved')">Aprobar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="updateStatus(request.id, 'rejected')">Rechazar</button>
+              </td>
+            }
+            <td *ngIf="request.status !== 'pending'">—</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+  @if (!isLoading && !accessRequests.length) {
+    <div class="alert alert-info mt-3">
+      No hay solicitudes de acceso registradas.
+    </div>
+  }
+</div>

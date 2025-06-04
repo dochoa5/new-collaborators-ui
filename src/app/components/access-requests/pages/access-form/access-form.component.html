@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <h2 class="mb-4 fw-bold text-center">Solicitud de Acceso</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="shadow-lg p-4 rounded bg-white">
+    <div class="mb-4">
+      <label class="form-label fw-semibold" for="userSelect">👤 Usuario</label>
+      <select class="form-select" formControlName="user_id" id="userSelect">
+        <option value="">Seleccione un usuario...</option>
+        @for (user of users; track user.id) {
+          <option [value]="user.id">{{ user.name }} ({{ user.email }})</option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold" for="requestTypeSelect">Tipo de Solicitud</label>
+      <select class="form-select" formControlName="request_type" id="requestTypeSelect">
+        <option value="">Seleccione un tipo...</option>
+        <option value="software">Software</option>
+        <option value="hardware">Hardware</option>
+        <option value="permisos">Permisos</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold">Aplicaciones</label>
+      <div class="row">
+        @for (app of availableApplications; track app) {
+          <div class="col-sm-6 mb-2">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="app"
+                (change)="onAppChange($event)"
+                [checked]="selectedApplications.includes(app)"
+                id="{{ app }}"
+              />
+              <label class="form-check-label" [for]="app">{{ app }}</label>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold" for="justification">Justificación</label>
+      <textarea
+        class="form-control"
+        formControlName="justification"
+        rows="4"
+        id="justification"
+        placeholder="Describe brevemente la razón de esta solicitud..."
+      ></textarea>
+    </div>
+
+    <div class="text-end">
+      <button
+        class="btn btn-primary px-4"
+        type="submit"
+        [disabled]="form.invalid || selectedApplications.length === 0"
+      >
+        Enviar Solicitud
+      </button>
+    </div>
+  </form>
+
+  <div
+    #successToast
+    class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-4"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        Envío de solicitud al equipo de TI exitoso.
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>

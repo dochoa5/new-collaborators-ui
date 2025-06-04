@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold text-primary mb-0">📋 Historial de Asignaciones</h2>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" [routerLink]="['/main']">
+          <i class="bi bi-arrow-left"></i> Volver al Inicio
+        </a>
+        <a class="btn btn-primary" [routerLink]="['/computers/assign']">
+          <i class="bi bi-plus-lg"></i> Asignar Computador
+        </a>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center my-4">
+      <canvas
+        #pieChartCanvas
+        style="width: 300px; height: 300px; max-width: 100%;"
+      ></canvas>
+    </div>
+
+    @if (isLoading) {
+      <div class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    }
+
+    @if (!isLoading && assignments.length) {
+      <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm">
+          <thead class="table-light">
+          <tr>
+            <th>Usuario</th>
+            <th>Equipo</th>
+            <th>Serial</th>
+            <th>Asignación</th>
+            <th>Devolución</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (a of assignments; track a) {
+              <tr>
+                <td>{{ a.user_name }}</td>
+                <td>{{ a.computer_name }}</td>
+                <td>{{ a.serial_number }}</td>
+                <td>{{ formatDate(a.assignment_date) }}</td>
+                <td>{{ formatDate(a.return_date ?? '') }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @if (!isLoading && !assignments.length) {
+      <div class="alert alert-info mt-4">
+        No hay asignaciones registradas.
+      </div>
+    }
+  </div>
+</div>

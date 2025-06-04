@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Gestión de Solicitudes de Acceso</h2>
+
+    @if (isLoading) {
+        <div class="alert alert-info">Cargando solicitudes...</div>
+    } @else if (!isLoading && accessRequests.length === 0) {
+        <div class="alert alert-warning">No hay solicitudes disponibles.</div>
+    } @else {
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+            <tr>
+                <th>Colaborador</th>
+                <th>Tipo</th>
+                <th>Aplicaciones</th>
+                <th>Justificación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let req of accessRequests">
+                <td>{{ req.user_name }}</td>
+                <td>{{ req.request_type }}</td>
+                <td>{{ formatApps(req.applications) }}</td>
+                <td>{{ req.justification }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'bg-warning': req.status === 'pending',
+                    'bg-success': req.status === 'approved',
+                    'bg-danger': req.status === 'rejected'
+                  }">
+                    {{ req.status }}
+                  </span>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-success me-1" (click)="updateStatus(req.id!, 'approved')"
+                            [disabled]="req.status !== 'pending'">
+                        Aprobar
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="updateStatus(req.id!, 'rejected')"
+                            [disabled]="req.status !== 'pending'">
+                        Rechazar
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    }
+</div>

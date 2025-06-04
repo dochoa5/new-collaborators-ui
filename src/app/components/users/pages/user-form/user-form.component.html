@@ -1,0 +1,130 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    <h2 class="mb-4 fw-bold text-primary text-center">
+      {{ userId ? 'Editar Usuario' : 'Crear Usuario' }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="nameInput" class="form-label">Nombre</label>
+          <input id="nameInput" type="text" class="form-control" formControlName="name" />
+          @if (form.get('name')?.touched && form.get('name')?.invalid) {
+            <div class="text-danger mt-1">Nombre es requerido.</div>
+          }
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="emailInput" class="form-label">Correo</label>
+          <input id="emailInput" type="email" class="form-control" formControlName="email" />
+          @if (form.get('email')?.touched && form.get('email')?.invalid) {
+            <div class="text-danger mt-1">
+              @if (form.get('email')?.errors?.['required']) {
+                Correo es requerido.
+              } @else if (form.get('email')?.errors?.['email']) {
+                Formato de correo inválido.
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="areaInput" class="form-label">Área</label>
+          <select
+            id="areaInput"
+            class="form-select"
+            formControlName="area"
+            (change)="handleAreaChange($event)"
+          >
+            <option value="">Seleccione un área...</option>
+            @for (area of availableAreas; track area) {
+              <option [value]="area">{{ area }}</option>
+            }
+          </select>
+          @if (form.get('area')?.touched && form.get('area')?.invalid) {
+            <div class="text-danger mt-1">Área es requerida.</div>
+          }
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="roleInput" class="form-label">Rol</label>
+          <select
+            id="roleInput"
+            class="form-select"
+            formControlName="role"
+            [disabled]="availableRoles.length === 0"
+          >
+            <option value="">Seleccione un rol...</option>
+            @for (role of availableRoles; track role) {
+              <option [value]="role">{{ role }}</option>
+            }
+          </select>
+          @if (form.get('role')?.touched && form.get('role')?.invalid) {
+            <div class="text-danger mt-1">Rol es requerido.</div>
+          }
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary px-4" type="submit" [disabled]="form.invalid || loading">
+          {{ loading ? 'Guardando...' : 'Guardar' }}
+          @if (loading) {
+            <output aria-live="polite" class="spinner-border spinner-border-sm ms-2">
+              <span class="visually-hidden">Cargando...</span>
+            </output>
+          }
+        </button>
+      </div>
+
+      @if (loading) {
+        <div class="overlay-loading text-center mt-3">
+          <output class="spinner-border text-primary" aria-live="polite">
+            <span class="visually-hidden">Cargando...</span>
+          </output>
+        </div>
+      }
+    </form>
+  </div>
+</div>
+
+<div
+  #successToast
+  class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-4"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      Usuario {{ userId ? 'actualizado' : 'creado' }} satisfactoriamente.
+    </div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>
+
+<div
+  #errorToast
+  class="toast align-items-center text-bg-danger border-0 position-fixed bottom-0 end-0 m-4"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      Ocurrió un error al {{ userId ? 'actualizar' : 'crear' }} el usuario.
+    </div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>

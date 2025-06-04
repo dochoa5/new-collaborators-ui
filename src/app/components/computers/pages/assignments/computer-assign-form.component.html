@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    <h2 class="mb-4 fw-bold text-primary text-center">🖥️ Asignar Computador</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="user_id" class="form-label fw-semibold">👤 Usuario</label>
+          <select id="user_id" class="form-select" formControlName="user_id">
+            <option value="">Seleccione un usuario...</option>
+            @for (user of users; track user.id) {
+              <option [value]="user.id">{{ user.name }} ({{ user.email }})</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="computer_id" class="form-label fw-semibold">💻 Computador</label>
+          <select id="computer_id" class="form-select" formControlName="computer_id">
+            <option value="">Seleccione un computador...</option>
+            @for (comp of computers; track comp.id) {
+              <option [value]="comp.id">
+                {{ comp.brand }} {{ comp.model }} - {{ comp.serial_number }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="assignment_date" class="form-label fw-semibold">📅 Fecha de Asignación</label>
+        <input type="date" id="assignment_date" class="form-control" formControlName="assignment_date" />
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary px-4" type="submit" [disabled]="form.invalid">
+          Asignar Computador
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div
+    #successToast
+    class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-4"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        Computador asignado exitosamente.
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+.login-container {
+  background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+}
+
+.card {
+  border-radius: 16px;
+  border: none;
+
+  .form-control {
+    border-radius: 8px;
+  }
+
+  button {
+    border-radius: 8px;
+  }
+}

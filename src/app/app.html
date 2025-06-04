@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+@if (!isMainPage) {
+  <app-top-bar></app-top-bar>
+}
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>

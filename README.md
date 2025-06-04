@@ -1,59 +1,111 @@
-# NewCollaboratorsUi
+# Frontend - Sistema de Gestión de Nuevos Colaboradores
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+Este es el frontend de la aplicación para la gestión de nuevos colaboradores. Permite visualizar, crear y gestionar usuarios, solicitudes de acceso y asignaciones de computadores mediante una interfaz moderna e intuitiva.
 
-## Development server
+## 🧱 Tecnologías Utilizadas
 
-To start a local development server, run:
+- Angular 20+ (Componentes standalone)
+- TypeScript
+- RxJS
+- Bootstrap 5 + Bootstrap Icons
+- Chart.js (ng2-charts)
+- Angular Forms / Reactive Forms
 
-```bash
-ng serve
+---
+
+## 📦 Estructura del Proyecto
+
+```
+new-collaborators-ui/
+├── src/
+│   ├── app/
+│   │   ├── users/               # Módulo de usuarios
+│   │   ├── access-requests/     # Módulo de solicitudes de acceso
+│   │   ├── computer-assign/     # Módulo de asignación de computadores
+│   │   ├── main/                # Módulo principal de navegación
+│   │   ├── shared/              # Componentes y servicios compartidos
+│   │   ├── guards/              # Guards para protección de rutas
+│   ├── assets/                  # Imágenes y estilos
+│   └── index.html
+├── angular.json
+├── package.json
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🖥️ Scripts de Proyecto
 
 ```bash
-ng generate component component-name
+npm install      # Instalar dependencias
+npm start        # Iniciar servidor local en http://localhost:4200
+npm run build    # Compilar para producción
+npm run test     # Ejecutar pruebas (si aplica)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
+## 🚀 Ejecución
+
+1. Clona el repositorio:
 ```bash
-ng generate --help
+git clone https://github.com/tu-usuario/new-collaborators-ui.git
+cd new-collaborators-ui
 ```
 
-## Building
-
-To build the project run:
-
+2. Instala dependencias:
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+3. Ejecuta el proyecto:
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🧩 Módulos Implementados
 
-```bash
-ng e2e
-```
+### 👤 Usuarios
+- Lista de usuarios con filtro por nombre/correo
+- Formulario de creación/edición
+- Validaciones reactivas
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 🔐 Solicitudes de Acceso
+- Registro de solicitudes por tipo (software/hardware/permisos)
+- Selección de aplicaciones
+- Estado de solicitud (pendiente, aprobado, rechazado)
 
-## Additional Resources
+### 💻 Asignación de Computadores
+- Inventario disponible de equipos
+- Formulario de asignación
+- Historial de asignaciones
+- Gráfica de estado (disponibles vs. asignados)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 🛡️ Guards de Rutas
+
+El sistema utiliza **Angular Route Guards** para proteger rutas específicas del sistema.  
+Ejemplos:
+- `AuthGuard` para verificar autenticación.
+- `RoleGuard` para permitir acceso según rol del usuario (admin, rrhh, etc.).
+
+---
+
+## 🎨 Estilo y UX
+
+- Bootstrap 5 + Bootstrap Icons
+- Diseño modular e intuitivo
+- Uso de tarjetas y navegación clara entre módulos
+- Responsive
+
+---
+
+## 🌐 Comunicación con el Backend
+
+Utiliza servicios Angular (`HttpClient`) para consumir la API REST expuesta por el backend en `http://localhost:3000`.
+
+---
+

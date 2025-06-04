@@ -1,0 +1,17 @@
+.top-bar {
+  font-size: 14px;
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #dbeafe;
+      text-decoration: none;
+    }
+  }
+}

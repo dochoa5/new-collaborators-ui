@@ -4,12 +4,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing-module';
 import {App} from './app';
 import {provideHttpClient} from '@angular/common/http';
+import {TopBar} from "./shared/top-bar/top-bar";
 
 @NgModule({
   declarations: [App],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TopBar
   ],
   providers: [
     provideHttpClient(),

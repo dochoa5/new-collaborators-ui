@@ -10,6 +10,7 @@ Este es el frontend de la aplicación para la gestión de nuevos colaboradores. 
 - Bootstrap 5 + Bootstrap Icons
 - Chart.js (ng2-charts)
 - Angular Forms / Reactive Forms
+- **Grafana** (Visualización de datos)
 
 ---
 
@@ -85,6 +86,21 @@ npm start
 
 ---
 
+## 📊 Visualización con Grafana
+
+El sistema se integra con **Grafana** para proporcionar visualización en tiempo real del estado de los computadores.  
+Se configura una conexión entre Grafana y la base de datos PostgreSQL para generar dashboards personalizados.
+
+### Métricas visualizadas:
+- Total de computadores registrados
+- Computadores disponibles vs. asignados
+- Historial de asignaciones por usuario
+- Tendencias de solicitudes de acceso por tipo
+
+Esta visualización permite al área de TI tomar decisiones informadas sobre la gestión de recursos tecnológicos en la organización.
+
+---
+
 ## 🛡️ Guards de Rutas
 
 El sistema utiliza **Angular Route Guards** para proteger rutas específicas del sistema.  
@@ -106,6 +122,3 @@ Ejemplos:
 ## 🌐 Comunicación con el Backend
 
 Utiliza servicios Angular (`HttpClient`) para consumir la API REST expuesta por el backend en `http://localhost:3000`.
-
----
-
